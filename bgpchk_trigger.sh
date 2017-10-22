@@ -19,7 +19,7 @@ echo ""
 echo "---------------------"
 echo "Down BGP sessions"
 echo "---------------------"
-grep 2 $LOGFILE
+grep DOWN $LOGFILE
 echo ""
 
 #display totals

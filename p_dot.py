@@ -93,7 +93,7 @@ def formatStatus(rawStatus) :
 
 def printFormattedResult(devName, mib, res):
 	"""print the result in a single line with identification data (dev and mib) at the front to help location in log files"""	
-	template = Template(" device: $dev status: $status time in this status: $time $units")
+	template = Template(" ,BGP Session $dev, Status: $status, Duration: $time $units")
 	output = devName + " " + mib + " "
 	units = "seconds"
 	for index in [0,1]:
