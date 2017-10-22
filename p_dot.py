@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+#comment made by Richard
 #
 # This command processes the output from an snmpbulkwalk command to find the status and time in this status for the
 # two embedded 'devices'. Prints the result on one line with identification data at the front so that the results can be easily
