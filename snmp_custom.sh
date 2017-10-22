@@ -10,7 +10,7 @@
 DEV=$1
 MIB_STRIPPED=2.15.3.1
 MIB=mib-${MIB_STRIPPED}
-CS_RO=@u_6*G4s.
+CS_RO=@xxxxxxxx
 
 snmpbulkwalk -v2c -c $CS_RO ${DEV} ${MIB} | ./p_dot.py ${DEV} ${MIB_STRIPPED}
 
