@@ -111,7 +111,7 @@ def printFormattedResult(devName, mib, res):
 					time = entry[1] / (3600*24*7)
 		output = devName + " " + template.substitute( dev=index, status = status, time=(time), units= units )
 		print output
-
+"""Richard entered this"""
 def main():
 	verifyArgs(sys.argv)
 	
