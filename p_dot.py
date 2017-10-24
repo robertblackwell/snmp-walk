@@ -93,8 +93,8 @@ def formatStatus(rawStatus) :
 	return "DOWN(" + str(rawStatus) + ")" 
 
 def formatTimeInterval(time) :
-	td = timedelta(seconds=time)
-	return str(td)
+	# td = timedelta(seconds=time)
+	# return str(td)
 	time_string = ""
 	if time > 60 :
 		seconds = time % 60
