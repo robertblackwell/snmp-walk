@@ -93,8 +93,7 @@ def formatStatus(rawStatus) :
 
 def printFormattedResult(devName, mib, res):
 	"""print the result in a single line with identification data (dev and mib) at the front to help location in log files"""	
-	template = Template(" ,BGP Session $dev, Status: $status, Duration: $time $units")
-	output = devName + " " + mib + " "
+	template = Template(" -->BGP Session $dev, Status: $status, Duration: $time $units")
 	units = "seconds"
 	for index in [0,1]:
 		entry = res[index]
@@ -110,8 +109,8 @@ def printFormattedResult(devName, mib, res):
 				if (entry[1] / (3600 * 24)) > 7 :
 					units = "weeks"
 					time = entry[1] / (3600*24*7)
-		output = output +  template.substitute( dev=index, status = status, time=(time), units= units )
-	print output
+		output = devName + " " + template.substitute( dev=index, status = status, time=(time), units= units )
+		print output
 
 def main():
 	verifyArgs(sys.argv)
