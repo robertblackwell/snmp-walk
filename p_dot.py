@@ -20,6 +20,7 @@
 import sys
 import re
 from string import Template
+from datetime import timedelta
 
 debug = False
 
@@ -91,39 +92,56 @@ def formatStatus(rawStatus) :
 		return "UP(" + str(rawStatus) + ")"
 	return "DOWN(" + str(rawStatus) + ")" 
 
+def formatTimeInterval(time) :
+	td = timedelta(seconds=time)
+	return str(td)
+	time_string = ""
+	if time > 60 :
+		seconds = time % 60
+		time = time /60
+		units = "minutes"
+		time_string = str(seconds) + " seconds " + time_string
+		if time > 60 :
+			minutes = time % 60
+			time = time / 60
+			units = "hours"
+			time_string = str(minutes) + " minutes " + time_string
+			if time > 24 :
+				hours = time % 24
+				time = time / 24
+				units = "days";
+				time_string = str(hours) + " hours " + time_string
+				if time > 7 :
+					days = time % 7
+					time = time / 7
+					weeks = time
+					units = "weeks"
+					time_string = str(weeks) + " weeks " + str(days) + " days "  + time_string
+				else :
+					days = time % 7
+					time_string = str(days) + " days "  + time_string
+			else :
+				hours = time % 24
+				time_string = str(hours) + " hours " + time_string
+		else :
+			minutes = time % 60
+			time_string = str(minutes) + " minutes " + time_string
+	else :
+		seconds = time % 60
+		time_string = str(seconds) + " seconds " + time_string
+
+	return time_string
+
 def printFormattedResult(devName, mib, res):
 	"""print the result in a single line with identification data (dev and mib) at the front to help location in log files"""	
 	template = Template(" --> BGP Session $dev, Status: $status, Duration: $time ")
+
 	units = "seconds"
 	for index in [0,1]:
 		entry = res[index]
 		status = formatStatus(entry[0])
 		time = entry[1]
-		units = "seconds"
-		time_string = ""
-		if time > 60 :
-			seconds = time % 60
-			time = time /60
-			units = "minutes"
-			time_string = str(seconds) + " seconds " + time_string
-			if time > 60 :
-				minutes = time % 60
-				time = time / 60
-				units = "hours"
-				time_string = str(minutes) + " minutes " + time_string
-				if time > 24 :
-					hours = time % 24
-					time = time / 24
-					units = "days";
-					time_string = str(hours) + " hours " + time_string
-					if time > 7 :
-						days = time % 7
-						time = time / 7
-						weeks = time
-						units = "weeks"
-						time_string = str(weeks) + " weeks " + str(days) + " days "  + time_string
-		
-
+		time_string = formatTimeInterval(time)
 		output = devName + " " + mib + " " + template.substitute( dev=index, status = status, time=(time_string) )
 		print output
 
